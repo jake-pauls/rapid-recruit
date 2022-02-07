@@ -1,11 +1,13 @@
-# Astro + React Example
+# Chrome Extension in Astro 🚀
+
+Watch for file changes with:
 
 ```
-npm init astro -- --template framework-react
+yarn dev
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/framework-react)
+This will automatically build the extension with `astro build` into the `dist/` directory.
 
 This example showcases Astro working with [React](https://reactjs.org/).
 
-Write your React components as `.jsx` or `.tsx` files in your project.
+Write the React components as `.jsx` or `.tsx` files.

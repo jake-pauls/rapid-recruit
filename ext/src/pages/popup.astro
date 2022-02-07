@@ -1,13 +1,8 @@
 ---
-// Component Imports
 import Counter from '../components/Counter.jsx';
-import PopupButton from '../components/PopupButton.jsx';
 const someProps = {
   count: 0,
 };
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
 ---
 
 <html lang="en">
@@ -18,20 +13,17 @@ const someProps = {
     <style>
       html,
       body {
+        width: 100px;
+        height: 100px;
         font-family: system-ui;
-        margin: 0;
-      }
-      body {
-        padding: 2rem;
       }
     </style>
   </head>
   <body>
     <main>
       <Counter {...someProps} client:visible>
-        <h1>Hello, React!</h1>
+        <h1>Hello, Popup!</h1>
       </Counter>
-      <PopupButton client:visible />
     </main>
   </body>
 </html>

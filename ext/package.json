@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
+    "dev": "nodemon -w src -w public -e js,jsx,mjs,astro,css,json --exec \"yarn build\"",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
     "format": "yarn prettier -w ."
   },
   "devDependencies": {
     "astro": "^0.22.20",
+    "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "prettier-plugin-astro": "^0.0.12"
   }
