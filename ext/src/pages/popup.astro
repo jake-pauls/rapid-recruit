@@ -1,8 +1,10 @@
 ---
-import Counter from '../components/Counter.jsx';
-const someProps = {
-  count: 0,
-};
+import { QueryJobData } from '../Hooks/Queries';
+
+import axios from 'axios';
+import { useQuery } from 'react-query';
+
+import Table from '../components/Table.jsx';
 ---
 
 <html lang="en">
@@ -21,9 +23,7 @@ const someProps = {
   </head>
   <body>
     <main>
-      <Counter {...someProps} client:visible>
-        <h1>Hello, Popup!</h1>
-      </Counter>
+      <Table/>
     </main>
   </body>
 </html>
