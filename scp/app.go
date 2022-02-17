@@ -3,29 +3,38 @@ package main
 import (
     "fmt"
     "net/http"
+    "io/ioutil"
 
     "github.com/gin-gonic/gin"
 )
 
 func main() {
-    fmt.Println("Finding recruits...")
-
     router := gin.New()
 
     router.Use(gin.Recovery())
 
     api := router.Group("/api")
 
-    api.GET("/recruit", func(c *gin.Context) {
-        recruits := findRecruits()
+    // Accepts keywords in a JSON array and passes it to colly
+    api.POST("/recruit", func(c *gin.Context) {
+        jsonData, err := ioutil.ReadAll(c.Request.Body)
 
-        fmt.Println(recruits)
+        if err != nil {
+            fmt.Println(err)
+        }
 
+        fmt.Println(string(jsonData))
+
+        keywords := unmarshallKeywordsFromJSON(jsonData)
+
+        url := getSearchURL(keywords)
+        recruits := findRecruits(url)
         jsonRecruits := marshallRecruitsToJSON(recruits)
 
         c.JSON(http.StatusOK, jsonRecruits)
     })
 
+    // Test endpoint
     api.GET("/ping", func(c *gin.Context) {
         c.JSON(http.StatusOK, gin.H{
             "ping" : "pong",

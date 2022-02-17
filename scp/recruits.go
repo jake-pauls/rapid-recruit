@@ -1,7 +1,9 @@
 package main
 
 import (
+    "fmt"
     "strings"
+    "encoding/json"
 
     "github.com/go-rod/rod"
     "github.com/gocolly/colly"
@@ -18,10 +20,12 @@ type OutRecruit struct {
     Array []Recruit `json:"recruits"`
 }
 
-func findRecruits() []Recruit {
-    var recruits []Recruit
+type Keywords struct {
+    Array []string `json:"keywords"`
+}
 
-    url := getSearchURL()
+func findRecruits(url string) []Recruit {
+    var recruits []Recruit
 
     c := colly.NewCollector()
 
@@ -47,17 +51,27 @@ func findRecruits() []Recruit {
     return recruits
 }
 
-func getSearchURL() string {
+func getSearchURL(keywords []string) string {
+    url := "site:linkedin.com/in"
+
     browser := rod.New().MustConnect()
     defer browser.MustClose()
 
+    // Construct search URL with keywords
+    for _, k := range keywords {
+        url += " AND \"" + k + "\""
+    }
+
     page := browser.MustPage("https://google.com")
-    page.MustElement("input[name=q]").MustInput("site:linkedin.com/in AND \"Unity Developer\" AND \"Vancouver\"")
+    page.MustElement("input[name=q]").MustInput(url)
     page.Keyboard.Press('\r')
 
     return page.MustWaitLoad().MustInfo().URL
 }
 
+/**
+ * Converts an array of recruits to a marshalled JSON array
+ */
 func marshallRecruitsToJSON(recruits []Recruit) OutRecruit {
     var jsonRecruiter OutRecruit
 
@@ -66,4 +80,19 @@ func marshallRecruitsToJSON(recruits []Recruit) OutRecruit {
     }
 
     return jsonRecruiter
+}
+
+/**
+ * Returns keywords parsed/unmarshalled from a JSON array
+ */
+func unmarshallKeywordsFromJSON(jsonData []byte) []string {
+    var keywords Keywords
+
+    err := json.Unmarshal([]byte(jsonData), &keywords)
+
+    if err != nil {
+        fmt.Println(err)
+    }
+
+    return keywords.Array
 }
