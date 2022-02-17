@@ -1,52 +1,43 @@
 package main
 
 import (
-    "strings"
+    "fmt"
+    "net/http"
 
-    "github.com/go-rod/rod"
-    "github.com/gocolly/colly"
+    "github.com/gin-gonic/gin"
 )
 
-type Recruit struct {
-    Name string `json:"name"`
-    Title string `json:"title"`
-    Company string `json:"company"`
-    Url string `json:"url"`
-}
-
 func main() {
-    url := getSearchURL()
+    fmt.Println("Finding recruits...")
 
-    c := colly.NewCollector()
+    router := gin.New()
 
-    var recruits []Recruit
+    router.Use(gin.Recovery())
 
-    c.OnHTML("a[href]", func(e *colly.HTMLElement){
-        h3 := strings.TrimSpace(e.ChildText("h3"))
-        data := strings.Split(h3, " - ")
+    api := router.Group("/api")
 
-        if h3 != "" && strings.Contains(h3, "Linkedin") {
-            r := Recruit{
-                Name: data[0],
-                Title: data[1],
-                Company: strings.Split(data[2], " | ")[0],
-                Url: strings.Split(e.Attr("href"), "/url?q=")[1],
-            }
+    api.GET("/recruit", func(c *gin.Context) {
+        recruits := findRecruits()
 
-            recruits = append(recruits, r)
-        }
+        fmt.Println(recruits)
+
+        jsonRecruits := marshallRecruitsToJSON(recruits)
+
+        c.JSON(http.StatusOK, jsonRecruits)
     })
 
-    c.Visit(url)
-}
+    api.GET("/ping", func(c *gin.Context) {
+        c.JSON(http.StatusOK, gin.H{
+            "ping" : "pong",
+        })
+    })
 
-func getSearchURL() string {
-    browser := rod.New().MustConnect()
-    defer browser.MustClose()
+    port := fmt.Sprintf(":%d", 4040)
 
-    page := browser.MustPage("https://google.com")
-    page.MustElement("input[name=q]").MustInput("site:linkedin.com/in AND \"Unity Developer\" AND \"Vancouver\"")
-    page.Keyboard.Press('\r')
+    server := &http.Server {
+        Addr: port,
+        Handler: router,
+    }
 
-    return page.MustWaitLoad().MustInfo().URL
+    server.ListenAndServe()
 }
