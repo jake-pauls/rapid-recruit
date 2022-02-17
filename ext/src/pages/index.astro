@@ -1,19 +1,5 @@
 ---
-// Dependencies
-import { QueryClient, QueryClientProvider } from 'react-query';
-
-// Component Imports
-import Counter from '../components/Counter.jsx';
 import PopupButton from '../components/PopupButton.jsx';
-
-const someProps = {
-  count: 0,
-};
-
-const queryClient = new QueryClient();
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
 ---
 
 <html lang="en">
@@ -34,10 +20,6 @@ const queryClient = new QueryClient();
   </head>
   <body>
     <main>
-      <QueryClientProvider client={queryClient}></QueryClientProvider>
-      <Counter {...someProps} client:visible>
-        <h1>Hello, team!</h1>
-      </Counter>
       <PopupButton client:visible />
     </main>
   </body>
