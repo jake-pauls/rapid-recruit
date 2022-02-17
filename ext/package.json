@@ -13,5 +13,10 @@
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "prettier-plugin-astro": "^0.0.12"
+  },
+  "dependencies": {
+    "axios": "^0.26.0",
+    "react-query": "^3.34.15",
+    "react-table": "^7.7.0"
   }
 }
