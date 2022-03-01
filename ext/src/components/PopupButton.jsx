@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import Table from "./Table";
+import "./App.css";
+
 export default function PopupButton() {
   // const popup = () => {
   //   chrome.tabs.create(
@@ -34,29 +37,41 @@ export default function PopupButton() {
     setResponse(response.data.recruits)
   }
 
+  const columns = React.useMemo(
+    () => [
+      {
+        // first group - TV Show
+        Header: "Recruits",
+        // First group columns
+        columns: [
+          {
+            Header: "Name",
+            accessor: "name"
+          },
+          {
+            Header: "Title",
+            accessor: "title"
+          },
+          {
+            Header: "Company",
+            accessor: "company"
+          },
+          {
+            Header: "Link",
+            accessor: "url"
+          }
+        ]
+      },
+    ],
+    []
+  );
+
   return (
     <>
     <div>
       <input type="text" onChange={(e) => setKeywords(e.target.value)}></input>
       <button onClick={sendKeywords}>Search</button>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Title</th>
-          <th>Company</th>
-          <th>LinkedIn</th>
-        </tr>
-          {response.map((data) => {
-            return (
-              <tr>
-                <td>{data.name}</td>
-                <td>{data.title}</td>
-                <td>{data.company}</td>
-                <td><a href={data.url}>LinkedIn</a></td>
-              </tr>
-            )
-          })}
-      </table>
+      <Table columns={columns} data={response} />
     </div>
     </>
   );
