@@ -58,7 +58,8 @@ export default function PopupButton() {
           },
           {
             Header: "Link",
-            accessor: "url"
+            accessor: "url",
+            Cell: e =><a href={e.value} target="_blank"> Link </a>
           }
         ]
       },
@@ -68,9 +69,11 @@ export default function PopupButton() {
 
   return (
     <>
-    <div>
-      <input type="text" onChange={(e) => setKeywords(e.target.value)}></input>
-      <button onClick={sendKeywords}>Search</button>
+    <div class="container">
+      <input type="text" onChange={(e) => setKeywords(e.target.value)} placeholder="Search"></input>
+      <button class="button" onClick={sendKeywords}>Go</button>
+    </div>
+    <div class="container">
       <Table columns={columns} data={response} />
     </div>
     </>

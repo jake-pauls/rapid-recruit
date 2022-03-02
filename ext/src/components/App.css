@@ -1,28 +1,64 @@
-table {
+  body {
+    width: max-content;
+    max-width: 600px;
+  }
+
+  .App {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .container {
+    align-items: center;
+    text-align: -webkit-center;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgb(63, 63, 63); 
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(31, 31, 31); 
+  }
+  
+  table {
     border-spacing: 0;
     border: 1px solid #ededed;
   }
+
   table tr:last-child td {
     border-bottom: 0;
   }
+
   table th,
   table td {
     margin: 0;
-    padding: 0.5rem;
+    padding: 0.6rem;
     border-bottom: 1px solid #ededed;
     border-right: 1px solid #ededed;
     position: relative;
   }
+
   table th:last-child,
   table td:last-child {
     border-right: 0;
   }
+
   table tr:nth-child(even) {
     background-color: #fafafa;
   }
   
   table th::before {
-    position: absolute;
+    float: right;
     right: 15px;
     top: 16px;
     content: "";
@@ -31,28 +67,14 @@ table {
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
   }
+
   table th.sort-asc::before {
     border-bottom: 5px solid #22543d;
   }
   table th.sort-desc::before {
     border-top: 5px solid #22543d;
   }
-  
-  .App {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  }
-  .badge {
-    background-color: #9ae6b4;
-    color: #22543d;
-    margin-right: 4px;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
+
   input {
     padding: 10px;
     margin-bottom: 20px;
@@ -61,3 +83,50 @@ table {
     border: 1px solid #ddd;
     box-shadow: none;
   }
+
+  .button {
+    vertical-align: middle;
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px;
+    transition: all .2s;
+    cursor: pointer;
+    margin: 5px;
+    font-family: inherit;
+    font-weight: 750;
+    font-size: x-large;
+  }
+   
+   .button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+   }
+   
+   .button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+   }
+   
+   .button::after {
+    content: "";
+    display: inline-block;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+   }
+   
+   .button::after {
+    background-color: #eea892;
+   }
+   
+   .button:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+   }
