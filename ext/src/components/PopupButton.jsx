@@ -40,28 +40,21 @@ export default function PopupButton() {
   const columns = React.useMemo(
     () => [
       {
-        // first group - TV Show
-        Header: "Recruits",
-        // First group columns
-        columns: [
-          {
-            Header: "Name",
-            accessor: "name"
-          },
-          {
-            Header: "Title",
-            accessor: "title"
-          },
-          {
-            Header: "Company",
-            accessor: "company"
-          },
-          {
-            Header: "Link",
-            accessor: "url",
-            Cell: e =><a href={e.value} target="_blank"> Link </a>
-          }
-        ]
+        Header: "Name",
+        accessor: "name"
+      },
+      {
+        Header: "Title",
+        accessor: "title"
+      },
+      {
+        Header: "Company",
+        accessor: "company"
+      },
+      {
+        Header: "Link",
+        accessor: "url",
+        Cell: e =><a href={e.value} target="_blank"> Link </a>
       },
     ],
     []

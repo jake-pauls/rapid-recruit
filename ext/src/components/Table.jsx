@@ -5,25 +5,44 @@ import "./App.css";
 
 export default function Table({columns, data}) {
 
-  if (data) {
-    // Use the state and functions returned from useTable to build your UI
+  if (data !== undefined && data.length > 0) {
+
+  const [filterInput, setFilterInput] = useState("");
+
+  // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
+    setFilter
     } = useTable(
     {
       columns,
       data
     },
-    useSortBy
+    useFilters,
+    useSortBy,
   );
+
+  const handleFilterChange = e => {
+    const value = e.target.value || undefined;
+    setFilter("title", value); // Update the show.name filter. Now our table will filter and show only the rows which have a matching value
+    setFilterInput(value);
+  };
+
+  let window = document.querySelector("body");
+  window.style.width = "600px";
 
   // Render the UI for your table
   return (
     <>
+      <input
+        value={filterInput}
+        onChange={handleFilterChange}
+        placeholder={"Filter Title"}
+      />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
@@ -64,9 +83,9 @@ export default function Table({columns, data}) {
   );
   }
   else {
-    return (<p>
-      No Data
-    </p>
+    return (
+    <>
+    </>
     );
   }
 }
