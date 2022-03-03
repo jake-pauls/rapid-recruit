@@ -4,6 +4,8 @@ import axios from 'axios';
 import Table from "./Table";
 import "./App.css";
 
+import { WithContext as ReactTags } from 'react-tag-input';
+
 export default function PopupButton() {
   // const popup = () => {
   //   chrome.tabs.create(
@@ -23,19 +25,38 @@ export default function PopupButton() {
   //   );
   // };
 
-  const [keywords, setKeywords] = useState('');
+  const [keywords, setKeywords] = useState([]);
   const [response, setResponse] = useState([]);
+  const [tags, setTags] = useState([]);
 
   const sendKeywords = async () => {
-    let parsedKeywords = keywords.split(',');
-
-    let body = { "keywords": parsedKeywords }
+    let body = { "keywords": keywords }
 
     const response = await axios.post("http://localhost:4040/api/recruit", body)  
     console.log(response.data.recruits);
 
-    setResponse(response.data.recruits)
+    setResponse(response.data.recruits);
   }
+
+  const handleAddition = tag => {
+    setTags([...tags, tag])
+    setKeywords([...keywords, tag.text])
+  }
+
+  const handleDelete = i => {
+    setTags(tags.filter((tag, index) => index !== i));
+    setKeywords(keywords.filter((keyword, index) => index !== i));
+  };
+
+  const handleDrag = (tag, currPos, newPos) => {
+    const newTags = tags.slice();
+
+    newTags.splice(currPos, 1);
+    newTags.splice(newPos, 0, tag);
+
+    // re-render
+    setTags(newTags);
+  };
 
   const columns = React.useMemo(
     () => [
@@ -54,7 +75,7 @@ export default function PopupButton() {
       {
         Header: "Link",
         accessor: "url",
-        Cell: e =><a href={e.value} target="_blank"> Link </a>
+        Cell: e =><a href={e.value} target="_blank">Link</a>
       },
     ],
     []
@@ -63,8 +84,16 @@ export default function PopupButton() {
   return (
     <>
     <div class="container">
-      <input type="text" onChange={(e) => setKeywords(e.target.value)} placeholder="Search"></input>
-      <button class="button" onClick={sendKeywords}>Go</button>
+    <ReactTags
+          placeholder="Search"
+          inputFieldPosition="bottom"
+          handleAddition={handleAddition}
+          handleDelete={handleDelete}
+          handleDrag={handleDrag}
+          tags={tags}
+        />
+     <button class="button" onClick={sendKeywords}>Go</button>
+      
     </div>
     <div class="container">
       <Table columns={columns} data={response} />
