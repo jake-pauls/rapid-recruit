@@ -34,3 +34,6 @@ yarn-error.log*
 
 # Go workspace file
 go.work
+
+# API
+creds.json
