@@ -1,5 +1,12 @@
 ---
+import fs from 'node:fs/promises';
+
 import PopupButton from '../components/PopupButton.jsx';
+
+// Load creds.json file for sheets API key
+const url = new URL('../../creds.json', import.meta.url);
+const json = await fs.readFile(url, 'utf-8');
+const apiKey = JSON.parse(json).installed.api_key;
 ---
 
 <html lang="en">
@@ -16,7 +23,7 @@ import PopupButton from '../components/PopupButton.jsx';
         </div>
       </div>
       <div>
-        <PopupButton client:visible />
+        <PopupButton apiKey={apiKey} client:visible />
       </div>
     </main>
   </body>

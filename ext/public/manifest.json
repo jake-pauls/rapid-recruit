@@ -3,12 +3,17 @@
   "description": "Recruiting Chrome Extension",
   "version": "0.1",
   "manifest_version": 3,
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxi9QsM10oLTxLIkkjqtYpYI/adjXn/aNuoqYucMw6gB5NpsYQ3NzQBzv145Riiji2TihWfMGyhHT3xtNHk4ZGONBtzoVVmvxAjFwM0fFr1fgJesjlt755RMxDDC50hHuoIzboHJaoVtlYwMSLHz3Y+uHSeYZL7elIenu+GyB7C9VI81CouEc7fvSl2OENR6JkfLY6IueW5NT+Df5yYoT5+9JY8ZnU4jjna04QXcMRSmagq/tADIC845t6rLX5szcaNPxYUFQKhIKjsLvxHcLASgbpSpZS/EHTKAkjE2kTmKw13JwqpZAApBenEfSYBgwZApYx1iC2Rr9zz7tGLsu0QIDAQAB",
   "action": {
     "default_popup": "index.html",
     "default_title": "RapidRecruit",
     "default_icon": "favicon.ico"
   },
+  "oauth2": {
+    "client_id": "570190429155-i2iv92c6rdrgap2lgf09u5sm56jntr2t.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/drive.file"]
+  },
   "permissions": [
-    "tabs"
+    "identity"
   ]
 }
