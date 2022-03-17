@@ -27,23 +27,15 @@ export default function App({ apiKey }) {
   };
 
   const handleAddition = (tag) => {
-    setTags([...tags, tag]);
+    if(tags.length < 4 ){
+      setTags([...tags, tag]);
     setKeywords([...keywords, tag.text]);
+    }
   };
 
   const handleDelete = (i) => {
     setTags(tags.filter((tag, index) => index !== i));
     setKeywords(keywords.filter((keyword, index) => index !== i));
-  };
-
-  const handleDrag = (tag, currPos, newPos) => {
-    const newTags = tags.slice();
-
-    newTags.splice(currPos, 1);
-    newTags.splice(newPos, 0, tag);
-
-    // re-render
-    setTags(newTags);
   };
 
   const onTagUpdate = (i, newTag) => {
@@ -95,10 +87,10 @@ export default function App({ apiKey }) {
           inputFieldPosition="bottom"
           handleAddition={handleAddition}
           handleDelete={handleDelete}
-          handleDrag={handleDrag}
           onTagUpdate={onTagUpdate}
           suggestions={suggestions}
           tags={tags}
+          autocomplete
         />
         <button class="button searchbutton" onClick={sendKeywords}>
           Go

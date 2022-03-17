@@ -174,6 +174,14 @@ div.ReactTags__tags {
 
 /* Styles for selected tags */
 
+div.ReactTags__selected {
+  position: absolute;
+  bottom: 50%;
+  left: 0%;
+  transform: translateY(50%);
+  width: 150px;
+}
+
 div.ReactTags__selected span.ReactTags__tag {
     background: #ebddd3;
     border: 1.5px solid rgb(143, 143, 143);
@@ -209,8 +217,6 @@ div.ReactTags__suggestions ul {
     list-style-position: inside;
     margin: 0;
     padding: 0;
-    box-shadow: .05em .01em .5em rgba(0,0,0,.2);
-    background: white;
 }
 div.ReactTags__suggestions li {
     border-bottom: 1px solid #e4b696;
