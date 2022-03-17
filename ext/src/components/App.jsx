@@ -4,6 +4,7 @@ import { WithContext as ReactTags } from 'react-tag-input';
 
 import Table from './Table';
 import SheetsButton from './SheetsButton';
+import PDFButton from './PDFButton';
 
 import './App.css';
 
@@ -92,6 +93,7 @@ export default function App({ apiKey }) {
           <>
             <Table columns={columns} data={response} />
             <SheetsButton apiKey={apiKey} data={response} />
+            <PDFButton data={response} />
           </>
         ) : (
           <></>

@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import { generateExportTitle } from '../utils';
+
 import './App.css';
 
 export default function SheetsButton({ apiKey, data }) {
@@ -27,14 +29,9 @@ export default function SheetsButton({ apiKey, data }) {
   const createSheet = async (token) => {
     const url = `${baseUrl}?key=${apiKey}`;
 
-    const date = new Date();
-    const formattedDate = `${date.getFullYear()}/${
-      date.getMonth() + 1
-    }/${date.getDate()}-${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-
     const body = {
       properties: {
-        title: `RapidRecruit Results ${formattedDate}`,
+        title: generateExportTitle(),
       },
       sheets: [
         {
