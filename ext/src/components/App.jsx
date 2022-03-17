@@ -6,6 +6,7 @@ import Table from './Table';
 import SheetsButton from './SheetsButton';
 import PDFButton from './PDFButton';
 
+import { SEARCH_ITEMS } from '../../autofill';
 import './App.css';
 
 export default function App({ apiKey }) {
@@ -45,6 +46,19 @@ export default function App({ apiKey }) {
     setTags(newTags);
   };
 
+  const onTagUpdate = (i, newTag) => {
+    const updatedTags = tags.slice();
+    updatedTags.splice(i, 1, newTag);
+    setTags(updatedTags);
+  };
+
+  const suggestions = SEARCH_ITEMS.map(item => {
+    return {
+      id: item,
+      text: item
+    };
+  });
+
   const columns = React.useMemo(
     () => [
       {
@@ -82,6 +96,8 @@ export default function App({ apiKey }) {
           handleAddition={handleAddition}
           handleDelete={handleDelete}
           handleDrag={handleDrag}
+          onTagUpdate={onTagUpdate}
+          suggestions={suggestions}
           tags={tags}
         />
         <button class="button" onClick={sendKeywords}>
