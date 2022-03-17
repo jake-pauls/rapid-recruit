@@ -38,7 +38,7 @@ export default function Table({columns, data}) {
   // Render the UI for your table
   return (
     <>
-      <input
+      <input class="filterinput"
         value={filterInput}
         onChange={handleFilterChange}
         placeholder={"Filter Title"}

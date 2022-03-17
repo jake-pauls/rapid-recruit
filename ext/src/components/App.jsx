@@ -100,11 +100,11 @@ export default function App({ apiKey }) {
           suggestions={suggestions}
           tags={tags}
         />
-        <button class="button" onClick={sendKeywords}>
+        <button class="button searchbutton" onClick={sendKeywords}>
           Go
         </button>
       </div>
-      <div class="container">
+      <div>
         {response !== undefined && response.length > 0 ? (
           <>
             <Table columns={columns} data={response} />
