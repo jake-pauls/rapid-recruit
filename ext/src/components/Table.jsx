@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTable, useFilters, useSortBy } from "react-table";
+import { useTable, useGlobalFilter, useSortBy } from "react-table";
 
 import "./App.css";
 
@@ -16,19 +16,19 @@ export default function Table({columns, data}) {
     headerGroups,
     rows,
     prepareRow,
-    setFilter
+    setGlobalFilter,
     } = useTable(
     {
       columns,
       data
     },
-    useFilters,
+    useGlobalFilter,
     useSortBy,
   );
 
   const handleFilterChange = e => {
     const value = e.target.value || undefined;
-    setFilter("title", value); // Update the show.name filter. Now our table will filter and show only the rows which have a matching value
+    setGlobalFilter(value); // Update the show.name filter. Now our table will filter and show only the rows which have a matching value
     setFilterInput(value);
   };
 

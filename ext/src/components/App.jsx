@@ -99,6 +99,7 @@ export default function App({ apiKey }) {
           onTagUpdate={onTagUpdate}
           suggestions={suggestions}
           tags={tags}
+          autocomplete
         />
         <button class="button searchbutton" onClick={sendKeywords}>
           Go
