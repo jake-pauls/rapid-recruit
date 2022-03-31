@@ -87,5 +87,7 @@ export default function SheetsButton({ apiKey, data }) {
     console.log(response);
   };
 
-  return <button class="button" onClick={pushDataToSheet}>Export to Google Sheet</button>;
+  return <button class="button mediabutton" onClick={pushDataToSheet}>
+    Export Google Sheet
+    </button>;
 }

@@ -99,12 +99,13 @@ export default function App({ apiKey }) {
           onTagUpdate={onTagUpdate}
           suggestions={suggestions}
           tags={tags}
+          autocomplete
         />
-        <button class="button" onClick={sendKeywords}>
+        <button class="button searchbutton" onClick={sendKeywords}>
           Go
         </button>
       </div>
-      <div class="container">
+      <div>
         {response !== undefined && response.length > 0 ? (
           <>
             <Table columns={columns} data={response} />

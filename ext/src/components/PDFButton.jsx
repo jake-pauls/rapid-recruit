@@ -71,8 +71,8 @@ export default function PDFButton({ data }) {
   };
 
   return (
-    <button class="button" onClick={makePDF}>
-      PDF
+    <button class="button mediabutton" onClick={makePDF}>
+      Export PDF
     </button>
   );
 }
